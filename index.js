@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const homeRoutes = require('./routes/home');
@@ -16,15 +17,30 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
-
 app.use('/', homeRoutes);
 
-const PORT = process.env.PORT || 3000;
 
-const pass = 'g9RiqoDsrttpykhR';
-const dbUrl = 'mongodb+srv://shop-admin:<password>@cluster0-dbx7i.azure.mongodb.net/test?retryWrites=true&w=majority';
+async function start() {
+    try {
+        const pass = 'g9RiqoDsrttpykhR';
+        const PORT = process.env.PORT || 3000;
+        const dbUrl = `mongodb+srv://shop-admin:${pass}@cluster0-dbx7i.azure.mongodb.net/test?retryWrites=true&w=majority`;
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-});
+        await mongoose.connect(dbUrl, {
+            useFindAndModify: false
+        });
+
+        mongoose.set('useNewUrlParser', true);
+
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`)
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+start();
+
 
