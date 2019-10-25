@@ -1,5 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet'); // HTTP header security
+const compression = require('compression'); // HTTP header security
+const csrf = require('csurf'); // FORM security
+
 const path = require('path');
 const exphbs = require('express-handlebars');
 const homeRoutes = require('./routes/home');
@@ -17,6 +21,10 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
+app.use(csrf());
+app.use(helmet());
+app.use(compression());
+
 app.use('/', homeRoutes);
 
 

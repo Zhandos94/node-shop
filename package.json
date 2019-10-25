@@ -14,8 +14,12 @@
   "author": "zhandos <zh.zhumagaly@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "compression": "^1.7.4",
+    "csurf": "^1.10.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "express-validator": "^6.2.0",
+    "helmet": "^3.21.2",
     "mongoose": "^5.7.6"
   },
   "devDependencies": {

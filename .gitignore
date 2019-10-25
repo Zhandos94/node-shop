@@ -1,3 +1,4 @@
 # redactor project files
 .idea
 node_modules
+keys/key_dev.js
